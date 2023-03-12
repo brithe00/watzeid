@@ -34,7 +34,6 @@ export const uploadAvatar = (req, res, next) => {
 	try {
 		res.send(`/${req.file.path}`);
 	} catch (e) {
-		console.log(e);
 		next(e);
 	}
 };
