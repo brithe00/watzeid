@@ -66,7 +66,9 @@ const Dropdown = ({ image }) => {
 
 	return (
 		<Menu closeOnSelect={true}>
-			<Avatar src={image} as={MenuButton} />
+			<MenuButton>
+				<Avatar src={image} />
+			</MenuButton>
 			<MenuList>
 				<MenuGroup title="Settings" textAlign="center">
 					<MenuItem icon={<BsPlusSquare />}>New Post</MenuItem>
