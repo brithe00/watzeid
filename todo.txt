@@ -1,0 +1,51 @@
+// user.js
+[x] register
+[x] login
+[x] me
+[x] updateMe - name, profilePicture, bio // possibilité champs vide ?
+[x] getUserById
+[x] deleteMe
+[x] users
+[x] deleteUserById - admin
+[] updateUserById - admin
+[] logout
+[x] getUserByUsername
+
+// follow.js
+[x] myFollowing
+[x] myFollowers
+[x] getFollowingForUser
+[x] getFollowersForUser
+
+// followSystem.js
+[x] followUser
+[x] unfollowUser
+
+// comment.js
+[x] createComment
+[x] deleteComment
+[x] getAllCommentsForPost
+[x] getAllCommentsForUser
+
+
+!! VALIDATIONS !!
+!! DELETE TRY CATCH NEXT !!
+!! NEXT POST DELETE PUT ? !!
+
+
+
+logique des likes, vote status etc
+
+
+
+[] vérifications handlers
+[] logout
+[] cascade: delete user => delete all posts
+[] counts ?
+[] remove console log
+[] remove useless routes
+[] pagination
+[] filters
+[] logic follow, rajouter un champ bdd pour savoir si true false si follow etc...*
+[] user by id admin?
+[] rename var etc...

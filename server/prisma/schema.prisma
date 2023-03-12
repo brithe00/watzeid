@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @unique @default(uuid())
+  username       String    @unique
+  password       String
+  name           String?
+  email          String    @unique
+  profilePicture String?
+  bio            String?
+  posts          Post[] 
+  followers      String[]
+  following      String[]
+  likes          Like[] 
+  comments       Comment[]
+  isAdmin        Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Post {
+  id         String    @id @unique @default(uuid())
+  caption    String?
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media      Media[]
+  likes      Like[]
+  comments   Comment[]
+  items      Item[]
+  points     Int       @default(0)
+  voteStatus Int?
+  userId     String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Media {
+  id        String     @id @unique @default(uuid())
+  url       String
+  type      MEDIA_TYPE @default(IMAGE)
+  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Item {
+  id        String   @id @unique @default(uuid())
+  name      String
+  imageUrl  String?
+  link      String?
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        String   @id @unique @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  value     Boolean?
+  userId    String
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id        String   @id @unique @default(uuid())
+  text      String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    String
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum MEDIA_TYPE {
+  IMAGE
+  VIDEO
+}
