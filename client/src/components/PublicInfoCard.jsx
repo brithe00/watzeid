@@ -2,25 +2,31 @@ import {
 	Avatar,
 	Box,
 	Button,
+	Center,
 	Container,
 	Divider,
 	Flex,
 	FormControl,
 	FormHelperText,
 	FormLabel,
+	HStack,
+	Icon,
 	Input,
 	InputGroup,
+	Square,
 	Stack,
+	Text,
 	Textarea,
 	useColorModeValue,
+	VStack,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useState, useRef } from 'react';
+import { FiUploadCloud } from 'react-icons/fi';
 import { useMutation, useQueryClient } from 'react-query';
 import { updateMe } from '../api/user';
 import AlertState from './Alert';
 // eslint-disable-next-line no-unused-vars
-import Dropzone from './Dropzone';
 import Spinner from './Spinner';
 
 const PublicInfoCard = (props) => {
@@ -85,6 +91,8 @@ const PublicInfoCard = (props) => {
 	const { data } = props;
 
 	const color = useColorModeValue('sm', 'sm-dark');
+
+	const colorDropzone = useColorModeValue('white', 'gray.800');
 
 	if (data.status === 'loading')
 		return (
@@ -174,9 +182,48 @@ const PublicInfoCard = (props) => {
 							size="lg"
 							src={profilePicture || data.data.user.profilePicture}
 						/>
-						{/* <Dropzone width="full" /> */}
-						<Input type="file" onChange={uploadFileHandler} />
-						{uploading && <Spinner />}
+						{/* DROPZONE */}
+						<Center
+							width="full"
+							borderWidth="1px"
+							borderRadius="lg"
+							px="6"
+							py="4"
+							bg={colorDropzone}
+							{...props}
+						>
+							<VStack spacing="3">
+								<Square size="10" bg="bg-subtle" borderRadius="lg">
+									<Icon as={FiUploadCloud} boxSize="5" color="muted" />
+								</Square>
+								<VStack spacing="1">
+									<HStack spacing="1" whiteSpace="nowrap">
+										<Button
+											variant="link"
+											colorScheme="blue"
+											size="sm"
+											as="label"
+											htmlFor="upload-button"
+											cursor="pointer"
+										>
+											Click to upload
+										</Button>
+										<Text fontSize="sm" color="muted">
+											or drag and drop
+										</Text>
+									</HStack>
+									<Text fontSize="xs" color="muted">
+										PNG, JPG or GIF up to 2MB
+									</Text>
+								</VStack>
+							</VStack>
+							<Input
+								type="file"
+								id="upload-button"
+								onChange={uploadFileHandler}
+								display="none"
+							/>
+						</Center>
 					</Stack>
 				</FormControl>
 			</Stack>
@@ -193,7 +240,7 @@ const PublicInfoCard = (props) => {
 					type="submit"
 					variant="primary"
 					onClick={() => updateMeHandler()}
-					isLoading={updateMeMutation.isLoading}
+					isLoading={uploading || updateMeMutation.isLoading}
 				>
 					Save
 				</Button>
