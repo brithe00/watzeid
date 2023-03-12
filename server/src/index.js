@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
+import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -23,6 +24,9 @@ app.get('/', (req, res) => {
 app.use('/api', protect, router);
 app.post('/register', register);
 app.post('/login', login);
+
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.listen(process.env.PORT, () => {
 	console.log(`server on http://localhost:${process.env.PORT}`);
