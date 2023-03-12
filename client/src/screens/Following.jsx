@@ -18,6 +18,21 @@ import { useQuery } from 'react-query';
 import { getFollowingForUser } from '../api/follow';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const Card = (props) => {
+	return (
+		<Box
+			maxW="3xl"
+			mx="auto"
+			bg={useColorModeValue('white', 'gray.700')}
+			rounded="xl"
+			padding="10"
+			shadow={{ md: 'base' }}
+			px={{ base: '6', md: '8' }}
+			{...props}
+		/>
+	);
+};
+
 const Following = () => {
 	const color = useColorModeValue('sm', 'sm-dark');
 
@@ -51,10 +66,12 @@ const Following = () => {
 		<Layout>
 			{getFollowingForUserQuery.data.following.length === 0 ? (
 				<Container>
-					<AlertState
-						status="error"
-						message={`@${username} following nobody !`}
-					/>
+					<Card>
+						<AlertState
+							status="error"
+							message={`@${username} following nobody !`}
+						/>
+					</Card>
 				</Container>
 			) : (
 				<Box

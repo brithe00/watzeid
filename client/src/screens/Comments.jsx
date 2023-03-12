@@ -73,14 +73,32 @@ const Comments = () => {
 		);
 	};
 
+	const Card = (props) => {
+		return (
+			<Box
+				maxW="3xl"
+				mx="auto"
+				bg={useColorModeValue('white', 'gray.700')}
+				rounded="xl"
+				padding="10"
+				shadow={{ md: 'base' }}
+				px={{ base: '6', md: '8' }}
+				{...props}
+			/>
+		);
+	};
+
 	return (
 		<Layout>
+			{deleteCommentMutation.status === 'loading' && <Spinner />}
 			{getMyCommentsQuery.data.comments.length === 0 ? (
 				<Container>
-					<AlertState
-						status="error"
-						message={`You did not commented posts !`}
-					/>
+					<Card>
+						<AlertState
+							status="error"
+							message={`You did not commented posts !`}
+						/>
+					</Card>
 				</Container>
 			) : (
 				<Container
