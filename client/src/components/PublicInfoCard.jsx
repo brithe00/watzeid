@@ -21,13 +21,15 @@ import {
 	VStack,
 } from '@chakra-ui/react';
 import axios from 'axios';
-import { useState, useRef } from 'react';
-import { FiUploadCloud } from 'react-icons/fi';
+import { useState, useRef, useCallback } from 'react';
+import { FiUploadCloud, FiImage } from 'react-icons/fi';
 import { useMutation, useQueryClient } from 'react-query';
 import { updateMe } from '../api/user';
 import AlertState from './Alert';
 // eslint-disable-next-line no-unused-vars
 import Spinner from './Spinner';
+
+import { useDropzone } from 'react-dropzone';
 
 const PublicInfoCard = (props) => {
 	const queryClient = useQueryClient();
@@ -43,25 +45,9 @@ const PublicInfoCard = (props) => {
 
 	const [uploading, setUploading] = useState(false);
 
-	const updateMeMutation = useMutation({
-		mutationFn: updateMe,
-		onSuccess: () => {
-			queryClient.invalidateQueries(['me']);
-		},
-	});
-
-	const updateMeHandler = () => {
-		updateMeMutation.mutate({
-			name: nameRef.current.value,
-			bio: bioRef.current.value,
-			profilePicture: profilePicture,
-		});
-	};
-
-	const uploadFileHandler = async (e) => {
-		const file = e.target.files[0];
+	const onDrop = useCallback(async (acceptedFiles) => {
 		const formData = new FormData();
-		formData.append('image', file);
+		formData.append('image', acceptedFiles[0]);
 		setUploading(true);
 
 		try {
@@ -86,6 +72,30 @@ const PublicInfoCard = (props) => {
 			console.log(error);
 			setUploading(false);
 		}
+	}, []);
+
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop,
+		accept: {
+			'image/png': ['.png'],
+			'image/jpeg': ['.jpeg', '.jpg'],
+		},
+		multiple: false,
+	});
+
+	const updateMeMutation = useMutation({
+		mutationFn: updateMe,
+		onSuccess: () => {
+			queryClient.invalidateQueries(['me']);
+		},
+	});
+
+	const updateMeHandler = () => {
+		updateMeMutation.mutate({
+			name: nameRef.current.value,
+			bio: bioRef.current.value,
+			profilePicture: profilePicture,
+		});
 	};
 
 	const { data } = props;
@@ -148,7 +158,6 @@ const PublicInfoCard = (props) => {
 							value={name || data.data.user.name}
 							onChange={(e) => setName(e.target.value)}
 						/>
-						{/* <Input defaultValue={data.data.user.name} /> */}
 					</InputGroup>
 				</FormControl>
 				<FormControl id="bio">
@@ -161,7 +170,6 @@ const PublicInfoCard = (props) => {
 						value={bio || data.data.user.bio}
 						onChange={(e) => setBio(e.target.value)}
 					/>
-					{/* <Textarea rows={3} resize="none" defaultValue={data.data.user.bio} /> */}
 					<FormHelperText color="subtle">
 						Write a short introduction about yourself
 					</FormHelperText>
@@ -190,39 +198,52 @@ const PublicInfoCard = (props) => {
 							px="6"
 							py="4"
 							bg={colorDropzone}
-							{...props}
+							{...getRootProps()}
 						>
 							<VStack spacing="3">
-								<Square size="10" bg="bg-subtle" borderRadius="lg">
-									<Icon as={FiUploadCloud} boxSize="5" color="muted" />
-								</Square>
-								<VStack spacing="1">
-									<HStack spacing="1" whiteSpace="nowrap">
-										<Button
-											variant="link"
-											colorScheme="blue"
-											size="sm"
-											as="label"
-											htmlFor="upload-button"
-											cursor="pointer"
-										>
-											Click to upload
-										</Button>
-										<Text fontSize="sm" color="muted">
-											or drag and drop
-										</Text>
-									</HStack>
-									<Text fontSize="xs" color="muted">
-										PNG, JPG or GIF up to 2MB
-									</Text>
-								</VStack>
+								{isDragActive ? (
+									<>
+										<Square size="10" bg="bg-subtle" borderRadius="lg">
+											<Icon as={FiImage} boxSize="5" color="muted" />
+										</Square>
+										<VStack spacing="1">
+											<HStack spacing="1" whiteSpace="nowrap">
+												<Text fontSize="sm" color="muted">
+													Drop the file here...
+												</Text>
+											</HStack>
+											<Text fontSize="xs" color="muted">
+												PNG, JPG or JPEG up to 2MB
+											</Text>
+										</VStack>
+									</>
+								) : (
+									<>
+										<Square size="10" bg="bg-subtle" borderRadius="lg">
+											<Icon as={FiUploadCloud} boxSize="5" color="muted" />
+										</Square>
+										<VStack spacing="1">
+											<HStack spacing="1" whiteSpace="nowrap">
+												<Button
+													variant="link"
+													colorScheme="blue"
+													size="sm"
+													cursor="pointer"
+												>
+													Click to upload
+												</Button>
+												<Text fontSize="sm" color="muted">
+													or drag and drop
+												</Text>
+											</HStack>
+											<Text fontSize="xs" color="muted">
+												PNG, JPG or JPEG up to 2MB
+											</Text>
+										</VStack>
+									</>
+								)}
 							</VStack>
-							<Input
-								type="file"
-								id="upload-button"
-								onChange={uploadFileHandler}
-								display="none"
-							/>
+							<Input {...getInputProps()} />
 						</Center>
 					</Stack>
 				</FormControl>

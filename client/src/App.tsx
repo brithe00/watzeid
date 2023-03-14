@@ -9,12 +9,14 @@ import Following from './screens/Following';
 import Informations from './screens/Informations';
 import Users from './screens/Users';
 import Comments from './screens/Comments';
+import CreatePost from './screens/CreatePost';
 
 const App = () => {
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Layout children={<Main />} />} />
+				<Route path="/new" element={<CreatePost />} />
 				<Route path="/users" element={<Users />} />
 				<Route path="/:username" element={<Profile />} />
 				<Route path="/:username/followers" element={<Followers />} />

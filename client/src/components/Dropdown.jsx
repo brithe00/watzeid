@@ -71,7 +71,10 @@ const Dropdown = ({ image }) => {
 			</MenuButton>
 			<MenuList>
 				<MenuGroup title="Settings" textAlign="center">
-					<MenuItem icon={<BsPlusSquare />}>New Post</MenuItem>
+					<Link to="/new">
+						<MenuItem icon={<BsPlusSquare />}>New Post</MenuItem>
+					</Link>
+
 					<Link to={`/${meQuery.data.user.username}`}>
 						<MenuItem icon={<BsPerson />}>Your Profile</MenuItem>
 					</Link>

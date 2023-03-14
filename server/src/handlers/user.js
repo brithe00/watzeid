@@ -23,7 +23,14 @@ export const register = async (req, res, next) => {
 		},
 	});
 
-	const forbiddenNames = ['users', 'profile', 'register', 'login', 'comments'];
+	const forbiddenNames = [
+		'users',
+		'profile',
+		'register',
+		'login',
+		'comments',
+		'new',
+	];
 
 	try {
 		if (alreadyExistsUsername || alreadyExistsEmail) {
