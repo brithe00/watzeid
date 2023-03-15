@@ -5,7 +5,7 @@ import {
 	Stack,
 	Text,
 } from '@chakra-ui/react';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Logo } from '../components/Logo';
 
 const Footer = () => (
@@ -28,21 +28,17 @@ const Footer = () => (
 				<ButtonGroup variant="ghost">
 					<IconButton
 						as="a"
-						href="#"
+						href="https://linkedin.com/in/brian-thellier"
 						aria-label="LinkedIn"
 						icon={<FaLinkedin fontSize="1.25rem" />}
+						target="_blank"
 					/>
 					<IconButton
 						as="a"
-						href="#"
+						href="https://github.com/brithe00"
 						aria-label="GitHub"
 						icon={<FaGithub fontSize="1.25rem" />}
-					/>
-					<IconButton
-						as="a"
-						href="#"
-						aria-label="Twitter"
-						icon={<FaTwitter fontSize="1.25rem" />}
+						target="_blank"
 					/>
 				</ButtonGroup>
 			</Stack>
