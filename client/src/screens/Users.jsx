@@ -20,6 +20,7 @@ import {
 	UserInfo,
 } from '../components/UserCardList';
 import { useNavigate } from 'react-router-dom';
+import { PageHeaderNoUser } from '../components/PageHeaderNoUser';
 
 const Users = () => {
 	const color = useColorModeValue('sm', 'sm-dark');
@@ -55,16 +56,10 @@ const Users = () => {
 
 	return (
 		<Layout>
-			<Box as="section">
-				<Container>
-					<Stack spacing="1">
-						<Heading size={size} fontWeight="medium">
-							Member overview
-						</Heading>
-						<Text color="muted">All registered users in the overview</Text>
-					</Stack>
-				</Container>
-			</Box>
+			<PageHeaderNoUser
+				heading="Member overview"
+				text="All registered users in the overview"
+			/>
 			<Box
 				bg={color}
 				px={{

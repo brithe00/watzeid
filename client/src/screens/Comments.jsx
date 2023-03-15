@@ -20,6 +20,7 @@ import { useQueryClient, useQuery, useMutation } from 'react-query';
 import { getMyComments, deleteComment } from '../api/comments';
 
 import { LinkIcon, ViewIcon, DeleteIcon } from '@chakra-ui/icons';
+import { PageHeaderNoUser } from '../components/PageHeaderNoUser';
 
 const Comments = () => {
 	const color = useColorModeValue('sm', 'sm-dark');
@@ -90,16 +91,20 @@ const Comments = () => {
 
 	return (
 		<Layout>
+			<PageHeaderNoUser
+				heading="Your Comments"
+				text="Show and manage your comments"
+			/>
 			{deleteCommentMutation.status === 'loading' && <Spinner />}
 			{getMyCommentsQuery.data.comments.length === 0 ? (
-				<Container>
-					<Card>
+				<Box as="section" mt="6">
+					<Container>
 						<AlertState
 							status="error"
 							message={`You did not commented posts !`}
 						/>
-					</Card>
-				</Container>
+					</Container>
+				</Box>
 			) : (
 				<Container
 					mx="auto"
