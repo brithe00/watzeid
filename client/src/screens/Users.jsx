@@ -2,7 +2,11 @@ import {
 	Box,
 	Button,
 	Container,
+	Heading,
 	SimpleGrid,
+	Stack,
+	Text,
+	useBreakpointValue,
 	useColorModeValue,
 } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
@@ -19,6 +23,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
 	const color = useColorModeValue('sm', 'sm-dark');
+
+	const size = useBreakpointValue({
+		base: 'xs',
+		md: 'sm',
+	});
 
 	const navigate = useNavigate();
 
@@ -46,6 +55,16 @@ const Users = () => {
 
 	return (
 		<Layout>
+			<Box as="section">
+				<Container>
+					<Stack spacing="1">
+						<Heading size={size} fontWeight="medium">
+							Member overview
+						</Heading>
+						<Text color="muted">All registered users in the overview</Text>
+					</Stack>
+				</Container>
+			</Box>
 			<Box
 				bg={color}
 				px={{

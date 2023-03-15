@@ -1,7 +1,12 @@
 import {
+	Alert,
+	AlertDescription,
+	AlertIcon,
+	AlertTitle,
 	Box,
 	Button,
 	Container,
+	Link,
 	SimpleGrid,
 	useColorModeValue,
 } from '@chakra-ui/react';
@@ -19,6 +24,7 @@ import { Link as ReachLink } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getFollowersForUser } from '../api/follow';
 import { useNavigate, useParams } from 'react-router-dom';
+import { PageHeader } from '../components/PageHeader';
 
 const Card = (props) => {
 	return (
@@ -66,15 +72,25 @@ const Following = () => {
 
 	return (
 		<Layout>
+			<PageHeader
+				heading="Followers overview"
+				text="All users following "
+				username={username}
+			/>
 			{getFollowersForUserQuery.data.followers.length === 0 ? (
-				<Container>
-					<Card>
-						<AlertState
-							status="error"
-							message={`@${username} got no followers !`}
-						/>
-					</Card>
-				</Container>
+				<Box as="section" mt="6">
+					<Container>
+						<Alert status="error">
+							<AlertIcon />
+							<AlertTitle>
+								<Link as={ReachLink} to={`/${username}`}>
+									@{username}
+								</Link>
+							</AlertTitle>
+							<AlertDescription>got no followers.</AlertDescription>
+						</Alert>
+					</Container>
+				</Box>
 			) : (
 				<Box
 					bg={color}
