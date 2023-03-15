@@ -32,6 +32,8 @@
 - Component followers, following redirect on clik name
 - Format timestamps
 - Config properties for uploads (nbfiles, size...) backend & frontend
+- invalide queries when logout, refresh
+- check for @ before usernames
 
 !! VALIDATIONS !!
 !! DELETE TRY CATCH NEXT !!
