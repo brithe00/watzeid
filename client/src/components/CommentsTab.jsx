@@ -1,6 +1,7 @@
 import {
 	Box,
 	Container,
+	HStack,
 	Icon,
 	Link,
 	Stack,
@@ -12,8 +13,10 @@ import AlertState from '../components/Alert';
 import Spinner from '../components/Spinner';
 import { Link as ReachLink, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getCommentsForUser } from '../api/comments';
-import { LinkIcon } from '@chakra-ui/icons';
+import { getCommentsForUser } from '../api/comment';
+import { FiLink } from 'react-icons/fi';
+
+import { formatDistance } from 'date-fns';
 
 const CommentsTab = () => {
 	const { username } = useParams();
@@ -37,22 +40,6 @@ const CommentsTab = () => {
 			</Container>
 		);
 
-	const formatDate = (timestamp) => {
-		var dateFormat = new Date(timestamp);
-
-		return (
-			dateFormat.getDate() +
-			'/' +
-			(dateFormat.getMonth() + 1) +
-			'/' +
-			dateFormat.getFullYear() +
-			' ' +
-			dateFormat.getHours() +
-			':' +
-			dateFormat.getMinutes()
-		);
-	};
-
 	return (
 		<>
 			{getCommentsForUserQuery.data.comments.length === 0 ? (
@@ -65,17 +52,20 @@ const CommentsTab = () => {
 					<Stack divider={<StackDivider />} spacing="4">
 						{getCommentsForUserQuery.data.comments.map((comment) => (
 							<Stack key={comment.id} fontSize="sm" px="4" spacing="0.5">
-								<Box>
-									<Text fontWeight="medium" color="emphasized">
+								<HStack>
+									<Text fontWeight="medium" color="emphasized" maxW="80%">
 										{username} commented on post :{' '}
 										<Link as={ReachLink} to={`/post/${comment.post.id}`}>
-											{comment.post.caption} <Icon as={LinkIcon} />
+											{comment.post.caption} <Icon as={FiLink} />
 										</Link>
 									</Text>
 									<Text color="subtle">
-										Published {formatDate(comment.createdAt)}
+										•{' '}
+										{formatDistance(new Date(comment.createdAt), new Date(), {
+											addSuffix: true,
+										})}
 									</Text>
-								</Box>
+								</HStack>
 								<Text
 									noOfLines={3}
 									color="muted"

@@ -82,8 +82,14 @@ const Dropdown = ({ image }) => {
 						<MenuItem icon={<BsInfoCircle />}>Your Informations</MenuItem>
 					</Link>
 
-					<MenuItem icon={<BsFileText />}>Your Posts</MenuItem>
-					<MenuItem icon={<BsHeart />}>Your Likes</MenuItem>
+					<Link to="/posts">
+						<MenuItem icon={<BsFileText />}>Your Posts</MenuItem>
+					</Link>
+
+					<Link to="/likes">
+						<MenuItem icon={<BsHeart />}>Your Likes</MenuItem>
+					</Link>
+
 					<Link to="/comments">
 						<MenuItem icon={<BsChatDots />}>Your Comments</MenuItem>
 					</Link>

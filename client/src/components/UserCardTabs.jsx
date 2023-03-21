@@ -1,5 +1,7 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
 import CommentsTab from './CommentsTab';
+import LikesTabs from './LikesTabs';
+import PostsTabs from './PostsTabs';
 
 const UserCardTabs = () => {
 	return (
@@ -13,10 +15,10 @@ const UserCardTabs = () => {
 
 				<TabPanels>
 					<TabPanel>
-						<p>one!</p>
+						<PostsTabs />
 					</TabPanel>
 					<TabPanel>
-						<p>two!</p>
+						<LikesTabs />
 					</TabPanel>
 					<TabPanel>
 						<CommentsTab />
