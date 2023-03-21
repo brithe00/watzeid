@@ -10,7 +10,7 @@
 		"client": "npm start --prefix client",
 		"build": "npm build --prefix build",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"deploy": "npx prisma generate && concurrently \"npm run server\" \"npm run build\""
+		"deploy": "npx prisma generate --schema=server/prisma/schema.prisma && concurrently \"npm run server\" \"npm run build\""
 	},
 	"keywords": [],
 	"author": "",
