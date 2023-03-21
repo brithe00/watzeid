@@ -54,7 +54,7 @@ export const getUsers = () => {
 	};
 
 	return axios
-		.get('http://localhost:8000/api/users/', config)
+		.get('http://localhost:8000/api/users', config)
 		.then((res) => res.data);
 };
 
