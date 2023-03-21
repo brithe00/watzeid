@@ -22,8 +22,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', protect, router);
-app.post('/register', register);
-app.post('/login', login);
+app.post('/auth/register', register);
+app.post('/auth/login', login);
 
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
