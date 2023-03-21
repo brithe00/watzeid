@@ -25,6 +25,9 @@ app.use('/api', router);
 // app.post('/auth/register', register);
 // app.post('/auth/login', login);
 
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, '/client/build')));
 
@@ -36,9 +39,6 @@ if (process.env.NODE_ENV === 'production') {
 		res.send('watzeid - API v1');
 	});
 }
-
-const __dirname = path.resolve();
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.listen(process.env.PORT, () => {
 	console.log(`server on http://localhost:${process.env.PORT}`);
