@@ -16,10 +16,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-	res.status(200);
-	res.json({ message: 'watzeid - API v1' });
-});
+// app.get('/', (req, res) => {
+// 	res.status(200);
+// 	res.json({ message: 'watzeid - API v1' });
+// });
 
 app.use('/api', router);
 // app.post('/auth/register', register);
