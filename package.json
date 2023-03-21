@@ -8,9 +8,8 @@
 		"start": "nodemon server/src/index",
 		"server": "nodemon server/src/index",
 		"client": "npm start --prefix client",
-		"build": "npm build --prefix build",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"deploy": "npx prisma generate --schema=server/prisma/schema.prisma && concurrently \"npm run server\" \"npm run build\""
+		"render-postbuild": "NPM_CONFIG_PRODUCTION=false npx prisma generate --schema=server/prisma/schema.prisma && npm install --prefix client && npm run build --prefix client"
 	},
 	"keywords": [],
 	"author": "",
