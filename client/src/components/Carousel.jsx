@@ -1,12 +1,11 @@
 import { Box, Flex, IconButton, useColorModeValue } from '@chakra-ui/react';
-import { useKeenSlider } from 'keen-slider/react'; // using version 6.6.10
+import { useKeenSlider } from 'keen-slider/react';
 import * as React from 'react';
 
 export const Carousel = React.forwardRef(function Carousel(props, ref) {
 	return (
 		<Flex
 			ref={ref}
-			borderRadius="6"
 			className="chakra-carousel"
 			overflow="hidden"
 			position="relative"

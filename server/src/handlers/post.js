@@ -18,7 +18,13 @@ export const getPostById = async (req, res) => {
 		where: {
 			id: req.params.id,
 		},
-		include: { media: true, items: true, comments: true, likes: true },
+		include: {
+			user: true,
+			media: true,
+			items: true,
+			comments: true,
+			likes: true,
+		},
 	});
 
 	if (post) {

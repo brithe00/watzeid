@@ -1,12 +1,20 @@
 import axios from 'axios';
 
-export const getPosts = () => {
-	return axios.get('http://localhost:8000/api/posts').then((res) => res.data);
-};
+// export const getPosts = () => {
+// 	return axios.get('http://localhost:8000/api/posts').then((res) => res.data);
+// };
 
 export const getPostById = (id) => {
+	const token = localStorage.getItem('token');
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
 	return axios
-		.get(`http://localhost:8000/api/posts/${id}`)
+		.get(`http://localhost:8000/api/posts/${id}`, config)
 		.then((res) => res.data);
 };
 

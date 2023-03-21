@@ -24,7 +24,7 @@ const App = () => {
 				<Route path="/:username" element={<Profile />} />
 				<Route path="/:username/followers" element={<Followers />} />
 				<Route path="/:username/following" element={<Following />} />
-				<Route path="/post/:postId" element={<Layout children={<Post />} />} />
+				<Route path="/post/:postId" element={<Post />} />
 				<Route path="/profile" element={<Informations />} />
 				<Route path="/posts" element={<Posts />} />
 				<Route path="/likes" element={<Likes />} />

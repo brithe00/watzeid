@@ -86,7 +86,7 @@ const Posts = () => {
 							spacing="4"
 						>
 							{getMyPostsQuery.data.posts.map((post) => (
-								<Card>
+								<Card key={post.id}>
 									<CardHeader>
 										<Text>
 											Posted{' '}

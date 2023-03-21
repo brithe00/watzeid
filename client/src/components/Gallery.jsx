@@ -9,13 +9,13 @@ import {
 	Stack,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import * as React from 'react';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import { Carousel, CarouselSlide, useCarousel } from '../components/Carousel';
+import { useState } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { Carousel, CarouselSlide, useCarousel } from './Carousel';
 
-const Gallery = (props) => {
+export const Gallery = (props) => {
 	const { images, aspectRatio = 4 / 3, rootProps } = props;
-	const [currentSlide, setCurrentSlide] = React.useState(0);
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const [ref, slider] = useCarousel({
 		slideChanged: (slider) => setCurrentSlide(slider.track.details.rel),
 	});
@@ -45,9 +45,9 @@ const Gallery = (props) => {
 								}}
 							>
 								<Image
-									src={image.src}
+									src={image.url}
 									objectFit="cover"
-									alt={image.alt}
+									alt={image.id}
 									fallback={<Skeleton />}
 								/>
 							</AspectRatio>
@@ -61,7 +61,7 @@ const Gallery = (props) => {
 						top="50%"
 						transform="translateY(-50%)"
 						onClick={() => slider.current?.prev()}
-						icon={<BiChevronLeft />}
+						icon={<FiChevronLeft />}
 						aria-label="Previous Slide"
 					/>
 				)}
@@ -73,7 +73,7 @@ const Gallery = (props) => {
 						top="50%"
 						transform="translateY(-50%)"
 						onClick={() => slider.current?.next()}
-						icon={<BiChevronRight />}
+						icon={<FiChevronRight />}
 						aria-label="Next Slide"
 					/>
 				)}
@@ -118,5 +118,3 @@ const CarouselIconButton = (props) => (
 		{...props}
 	/>
 );
-
-export default Gallery;
