@@ -16,29 +16,17 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.get('/', (req, res) => {
-// 	res.status(200);
-// 	res.json({ message: 'watzeid - API v1' });
-// });
+app.get('/', (req, res) => {
+	res.status(200);
+	res.json({ message: 'watzeid - API v1' });
+});
 
-app.use('/api', router);
-// app.post('/auth/register', register);
-// app.post('/auth/login', login);
+app.use('/api', protect, router);
+app.post('/register', register);
+app.post('/login', login);
 
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(__dirname, '/client/build')));
-
-	app.get('*', (req, res) =>
-		res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
-	);
-} else {
-	app.get('/', (req, res) => {
-		res.send('watzeid - API v1');
-	});
-}
 
 app.listen(process.env.PORT, () => {
 	console.log(`server on http://localhost:${process.env.PORT}`);
