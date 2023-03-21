@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const register = ({ username, email, password }) => {
 	return axios
-		.post('/auth/register', {
+		.post('/api/register', {
 			username,
 			email,
 			password,
@@ -12,7 +12,7 @@ export const register = ({ username, email, password }) => {
 
 export const login = ({ username, password }) => {
 	return axios
-		.post('/auth/login', { username, password })
+		.post('/api/login', { username, password })
 		.then((res) => localStorage.setItem('token', res.data.token));
 };
 

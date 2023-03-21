@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { admin } from '../middleware/auth.js';
+import { admin, protect } from '../middleware/auth.js';
 
 import {
 	deleteUserById,
@@ -9,6 +9,8 @@ import {
 	updateMe,
 	users,
 	deleteMe,
+	login,
+	register,
 } from '../handlers/user.js';
 
 import {
@@ -50,45 +52,48 @@ import {
 
 const router = Router();
 
-router.get('/me', me);
-router.put('/me', updateMe);
-router.delete('/me', deleteMe);
-router.get('/users', users);
-router.get('/users/:id', getUserById);
-router.delete('/users/:id', admin, deleteUserById);
-router.get('/users/:username/profile', getUserByUsername);
+router.post('/register', register);
+router.post('/login', login);
 
-router.get('/me/following', myFollowing);
-router.get('/me/followers', myFollowers);
+router.get('/me', protect, me);
+router.put('/me', protect, updateMe);
+router.delete('/me', protect, deleteMe);
+router.get('/users', protect, users);
+router.get('/users/:id', protect, getUserById);
+router.delete('/users/:id', protect, admin, deleteUserById);
+router.get('/users/:username/profile', protect, getUserByUsername);
 
-router.get('/:username/following', getFollowingForUser);
-router.get('/:username/followers', getFollowersForUser);
+router.get('/me/following', protect, myFollowing);
+router.get('/me/followers', protect, myFollowers);
+
+router.get('/:username/following', protect, getFollowingForUser);
+router.get('/:username/followers', protect, getFollowersForUser);
 
 // router.put('/users/:id/follow', followUser);
 // router.put('/users/:id/unfollow', unfollowUser);
-router.get('/me/likes', getMyLikes);
-router.get('/me/posts', getMyPosts);
-router.get('/:username/likes', getAllLikesForUserByUsername);
+router.get('/me/likes', protect, getMyLikes);
+router.get('/me/posts', protect, getMyPosts);
+router.get('/:username/likes', protect, getAllLikesForUserByUsername);
 
-router.get('/:username/posts', getPostsForUsername);
+router.get('/:username/posts', protect, getPostsForUsername);
 
-router.put('/users/:username/follow', followUserByUsername);
-router.put('/users/:username/unfollow', unfollowUserByUsername);
+router.put('/users/:username/follow', protect, followUserByUsername);
+router.put('/users/:username/unfollow', protect, unfollowUserByUsername);
 
-router.post('/posts/:id/like', likePost);
-router.delete('/posts/:id/unlike', unlikePost);
+router.post('/posts/:id/like', protect, likePost);
+router.delete('/posts/:id/unlike', protect, unlikePost);
 
-router.post('/posts/:id', createComment);
-router.delete('/posts/:id/comment', deleteComment);
-router.get('/posts/:id/comments', getAllCommentsForPost);
-router.get('/me/comments', getAllCommentsForMe);
+router.post('/posts/:id', protect, createComment);
+router.delete('/posts/:id/comment', protect, deleteComment);
+router.get('/posts/:id/comments', protect, getAllCommentsForPost);
+router.get('/me/comments', protect, getAllCommentsForMe);
 
-router.get('/:username/comments', getAllCommentsForUser);
+router.get('/:username/comments', protect, getAllCommentsForUser);
 
-router.post('/posts', createPost);
-router.get('/posts', getAllPosts);
-router.get('/posts/:id', getPostById);
+router.post('/posts', protect, createPost);
+router.get('/posts', protect, getAllPosts);
+router.get('/posts/:id', protect, getPostById);
 
-router.post('/uploads', upload.single('image'), uploadAvatar);
+router.post('/uploads', upload.single('image'), protect, uploadAvatar);
 
 export default router;
