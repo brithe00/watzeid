@@ -32,9 +32,21 @@ import {
 	getAllCommentsForMe,
 	getAllCommentsForUser,
 } from '../handlers/comment.js';
-import { createPost, getAllPosts, getPostById } from '../handlers/post.js';
+import {
+	createPost,
+	getAllPosts,
+	getMyPosts,
+	getPostById,
+	getPostsForUsername,
+} from '../handlers/post.js';
 
 import { upload, uploadAvatar } from '../handlers/upload.js';
+import {
+	getAllLikesForUserByUsername,
+	getMyLikes,
+	likePost,
+	unlikePost,
+} from '../handlers/like.js';
 
 const router = Router();
 
@@ -54,9 +66,17 @@ router.get('/:username/followers', getFollowersForUser);
 
 // router.put('/users/:id/follow', followUser);
 // router.put('/users/:id/unfollow', unfollowUser);
+router.get('/me/likes', getMyLikes);
+router.get('/me/posts', getMyPosts);
+router.get('/:username/likes', getAllLikesForUserByUsername);
+
+router.get('/:username/posts', getPostsForUsername);
 
 router.put('/users/:username/follow', followUserByUsername);
 router.put('/users/:username/unfollow', unfollowUserByUsername);
+
+router.post('/posts/:id/like', likePost);
+router.delete('/posts/:id/unlike', unlikePost);
 
 router.post('/posts/:id', createComment);
 router.delete('/posts/:id/comment', deleteComment);

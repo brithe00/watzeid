@@ -24,6 +24,9 @@ export const register = async (req, res, next) => {
 	});
 
 	const forbiddenNames = [
+		'post',
+		'posts',
+		'likes',
 		'users',
 		'profile',
 		'register',

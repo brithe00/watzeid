@@ -64,3 +64,58 @@ export const createPost = async (req, res, next) => {
 		next(e);
 	}
 };
+
+export const getMyPosts = async (req, res) => {
+	const posts = await prisma.post.findMany({
+		where: {
+			userId: req.user.id,
+		},
+
+		include: {
+			media: true,
+			items: true,
+			_count: {
+				select: {
+					likes: true,
+					comments: true,
+				},
+			},
+		},
+		orderBy: [
+			{
+				createdAt: 'desc',
+			},
+		],
+	});
+
+	res.json({ posts });
+};
+
+export const getPostsForUsername = async (req, res) => {
+	const user = await prisma.user.findUnique({
+		where: {
+			username: req.params.username,
+		},
+	});
+
+	if (user) {
+		const posts = await prisma.post.findMany({
+			where: {
+				userId: user.id,
+			},
+			include: {
+				media: true,
+			},
+			orderBy: [
+				{
+					createdAt: 'desc',
+				},
+			],
+		});
+
+		res.json({ posts });
+	} else {
+		res.status(404);
+		res.json({ message: 'User not found !' });
+	}
+};
