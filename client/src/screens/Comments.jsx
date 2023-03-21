@@ -1,6 +1,5 @@
 import {
 	Box,
-	ButtonGroup,
 	Container,
 	Icon,
 	IconButton,
@@ -17,10 +16,12 @@ import Layout from '../components/Layout';
 import Spinner from '../components/Spinner';
 
 import { useQueryClient, useQuery, useMutation } from 'react-query';
-import { getMyComments, deleteComment } from '../api/comments';
+import { getMyComments, deleteComment } from '../api/comment';
 
-import { LinkIcon, ViewIcon, DeleteIcon } from '@chakra-ui/icons';
+import { FiLink, FiEye, FiTrash2 } from 'react-icons/fi';
 import { PageHeaderNoUser } from '../components/PageHeaderNoUser';
+
+import { format } from 'date-fns';
 
 const Comments = () => {
 	const color = useColorModeValue('sm', 'sm-dark');
@@ -58,42 +59,11 @@ const Comments = () => {
 			/>
 		);
 
-	const formatDate = (timestamp) => {
-		var dateFormat = new Date(timestamp);
-
-		return (
-			dateFormat.getDate() +
-			'/' +
-			(dateFormat.getMonth() + 1) +
-			'/' +
-			dateFormat.getFullYear() +
-			' ' +
-			dateFormat.getHours() +
-			':' +
-			dateFormat.getMinutes()
-		);
-	};
-
-	const Card = (props) => {
-		return (
-			<Box
-				maxW="3xl"
-				mx="auto"
-				bg={useColorModeValue('white', 'gray.700')}
-				rounded="xl"
-				padding="10"
-				shadow={{ md: 'base' }}
-				px={{ base: '6', md: '8' }}
-				{...props}
-			/>
-		);
-	};
-
 	return (
 		<Layout>
 			<PageHeaderNoUser
 				heading="Your Comments"
-				text="Show and manage your comments"
+				text="Show posts you commented and manage them"
 			/>
 			{deleteCommentMutation.status === 'loading' && <Spinner />}
 			{getMyCommentsQuery.data.comments.length === 0 ? (
@@ -106,60 +76,88 @@ const Comments = () => {
 					</Container>
 				</Box>
 			) : (
-				<Container
-					mx="auto"
+				<Box
+					as="section"
 					py={{
 						base: '4',
 						md: '8',
 					}}
 				>
-					<Box bg="bg-surface" py="4" boxShadow={color} borderRadius="lg">
-						<Stack divider={<StackDivider />} spacing="4">
-							{getMyCommentsQuery.data.comments.map((comment) => (
-								<Stack key={comment.id} fontSize="sm" px="4" spacing="0.5">
-									<Box>
-										<Text fontWeight="medium" color="emphasized">
-											You commented on post :{' '}
-											<Link as={ReachLink} to={`/post/${comment.post.id}`}>
-												{comment.post.caption} <Icon as={LinkIcon} />
-											</Link>
-										</Text>
-										<Text color="subtle">
-											Published {formatDate(comment.createdAt)}
-										</Text>
-									</Box>
-									<Text
-										noOfLines={4}
-										color="muted"
-										// sx={{
-										// 	'-webkit-box-orient': 'vertical',
-										// 	'-webkit-line-clamp': '2',
-										// 	overflow: 'hidden',
-										// 	display: '-webkit-box',
-										// }}
+					<Container
+						mx="auto"
+						py={{
+							base: '4',
+							md: '8',
+						}}
+					>
+						<Box
+							bg="bg-surface"
+							boxShadow={color}
+							borderRadius="lg"
+							p={{
+								base: '4',
+								md: '6',
+							}}
+						>
+							<Stack spacing="5" divider={<StackDivider />}>
+								{getMyCommentsQuery.data.comments.map((comment) => (
+									<Stack
+										key={comment.id}
+										justify="space-between"
+										direction="row"
+										spacing="4"
 									>
-										{comment.text}
-									</Text>
-									<ButtonGroup pt="2">
-										<IconButton
-											as="a"
-											href={`/post/${comment.post.id}`}
-											aria-label="View Post"
-											icon={<ViewIcon />}
-										/>
-										<IconButton
-											as="a"
-											href="#"
-											aria-label="Delete Comment"
-											icon={<DeleteIcon />}
-											onClick={() => deleteCommentHandler(comment.post.id)}
-										/>
-									</ButtonGroup>
-								</Stack>
-							))}
-						</Stack>
-					</Box>
-				</Container>
+										<Stack spacing="0.5" fontSize="sm" width="83%">
+											<Text color="emphasized" fontWeight="medium">
+												You commented on post :{' '}
+												<Link as={ReachLink} to={`/post/${comment.post.id}`}>
+													{comment.post.caption} <Icon as={FiLink} />
+												</Link>
+											</Text>
+											<Text color="subtle">
+												• commented{' '}
+												{format(
+													new Date(comment.createdAt),
+													"dd/MM/yyyy' at 'HH:mm"
+												)}
+											</Text>
+											<Text noOfLines={4} color="muted">
+												{comment.text}
+											</Text>
+										</Stack>
+
+										<Stack
+											direction={{
+												base: 'column',
+												sm: 'row',
+											}}
+											spacing={{
+												base: '0',
+												sm: '1',
+											}}
+										>
+											<IconButton
+												as="a"
+												href={`/post/${comment.post.id}`}
+												icon={<FiEye fontSize="1.25rem" />}
+												variant="ghost"
+												aria-label="View Post"
+											/>
+											<IconButton
+												as="a"
+												icon={<FiTrash2 fontSize="1.25rem" />}
+												variant="ghost"
+												aria-label="Delete Comment"
+												cursor="pointer"
+												onClick={() => deleteCommentHandler(comment.post.id)}
+											/>
+										</Stack>
+									</Stack>
+								))}
+							</Stack>
+						</Box>
+					</Container>
+				</Box>
 			)}
 		</Layout>
 	);
