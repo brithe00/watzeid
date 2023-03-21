@@ -9,9 +9,7 @@ export const getMyComments = () => {
 		},
 	};
 
-	return axios
-		.get(`http://localhost:8000/api/me/comments`, config)
-		.then((res) => res.data);
+	return axios.get(`/api/me/comments`, config).then((res) => res.data);
 };
 
 export const getCommentsForUser = (username) => {
@@ -23,9 +21,7 @@ export const getCommentsForUser = (username) => {
 		},
 	};
 
-	return axios
-		.get(`http://localhost:8000/api/${username}/comments`, config)
-		.then((res) => res.data);
+	return axios.get(`/api/${username}/comments`, config).then((res) => res.data);
 };
 
 export const deleteComment = (postId) => {
@@ -38,6 +34,6 @@ export const deleteComment = (postId) => {
 	};
 
 	return axios
-		.delete(`http://localhost:8000/api/posts/${postId}/comment`, config)
+		.delete(`/api/posts/${postId}/comment`, config)
 		.then((res) => res.data);
 };

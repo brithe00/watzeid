@@ -10,7 +10,7 @@ export const getFollowingForUser = (username) => {
 	};
 
 	return axios
-		.get(`http://localhost:8000/api/${username}/following`, config)
+		.get(`/api/${username}/following`, config)
 		.then((res) => res.data);
 };
 
@@ -24,6 +24,6 @@ export const getFollowersForUser = (username) => {
 	};
 
 	return axios
-		.get(`http://localhost:8000/api/${username}/followers`, config)
+		.get(`/api/${username}/followers`, config)
 		.then((res) => res.data);
 };

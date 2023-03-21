@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const register = ({ username, email, password }) => {
 	return axios
-		.post('http://localhost:8000/register', {
+		.post('/register', {
 			username,
 			email,
 			password,
@@ -12,7 +12,7 @@ export const register = ({ username, email, password }) => {
 
 export const login = ({ username, password }) => {
 	return axios
-		.post('http://localhost:8000/login', { username, password })
+		.post('/login', { username, password })
 		.then((res) => localStorage.setItem('token', res.data.token));
 };
 
@@ -25,9 +25,7 @@ export const me = () => {
 		},
 	};
 
-	return axios
-		.get('http://localhost:8000/api/me', config)
-		.then((res) => res.data);
+	return axios.get('/api/me', config).then((res) => res.data);
 };
 
 export const getUserByUsername = (username) => {
@@ -40,7 +38,7 @@ export const getUserByUsername = (username) => {
 	};
 
 	return axios
-		.get(`http://localhost:8000/api/users/${username}/profile`, config)
+		.get(`/api/users/${username}/profile`, config)
 		.then((res) => res.data);
 };
 
@@ -53,9 +51,7 @@ export const getUsers = () => {
 		},
 	};
 
-	return axios
-		.get('http://localhost:8000/api/users', config)
-		.then((res) => res.data);
+	return axios.get('/api/users', config).then((res) => res.data);
 };
 
 export const deleteMe = () => {
@@ -67,9 +63,7 @@ export const deleteMe = () => {
 		},
 	};
 
-	return axios
-		.delete('http://localhost:8000/api/me', config)
-		.then((res) => res.data);
+	return axios.delete('/api/me', config).then((res) => res.data);
 };
 
 export const updateMe = ({ name, bio, profilePicture }) => {
@@ -83,6 +77,6 @@ export const updateMe = ({ name, bio, profilePicture }) => {
 	};
 
 	return axios
-		.put('http://localhost:8000/api/me', { name, bio, profilePicture }, config)
+		.put('/api/me', { name, bio, profilePicture }, config)
 		.then((res) => res.data);
 };

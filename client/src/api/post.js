@@ -13,9 +13,7 @@ export const getPostById = (id) => {
 		},
 	};
 
-	return axios
-		.get(`http://localhost:8000/api/posts/${id}`, config)
-		.then((res) => res.data);
+	return axios.get(`/api/posts/${id}`, config).then((res) => res.data);
 };
 
 export const getMyPosts = () => {
@@ -27,9 +25,7 @@ export const getMyPosts = () => {
 		},
 	};
 
-	return axios
-		.get('http://localhost:8000/api/me/posts', config)
-		.then((res) => res.data);
+	return axios.get('/api/me/posts', config).then((res) => res.data);
 };
 
 export const getPostsForUsername = (username) => {
@@ -41,7 +37,5 @@ export const getPostsForUsername = (username) => {
 		},
 	};
 
-	return axios
-		.get(`http://localhost:8000/api/${username}/posts`, config)
-		.then((res) => res.data);
+	return axios.get(`/api/${username}/posts`, config).then((res) => res.data);
 };

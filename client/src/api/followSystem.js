@@ -5,7 +5,7 @@ export const followUser = (username) => {
 
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-	return axios.put(`http://localhost:8000/api/users/${username}/follow`);
+	return axios.put(`/api/users/${username}/follow`);
 };
 
 export const unfollowUser = (username) => {
@@ -13,5 +13,5 @@ export const unfollowUser = (username) => {
 
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-	return axios.put(`http://localhost:8000/api/users/${username}/unfollow`);
+	return axios.put(`/api/users/${username}/unfollow`);
 };

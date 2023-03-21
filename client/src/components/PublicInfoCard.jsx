@@ -60,11 +60,7 @@ const PublicInfoCard = (props) => {
 				},
 			};
 
-			const { data } = await axios.post(
-				'http://localhost:8000/api/uploads',
-				formData,
-				config
-			);
+			const { data } = await axios.post('/api/uploads', formData, config);
 
 			setProfilePicture(data);
 			setUploading(false);

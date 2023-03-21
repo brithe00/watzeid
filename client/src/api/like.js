@@ -9,9 +9,7 @@ export const getMyLikes = () => {
 		},
 	};
 
-	return axios
-		.get(`http://localhost:8000/api/me/likes`, config)
-		.then((res) => res.data);
+	return axios.get(`/api/me/likes`, config).then((res) => res.data);
 };
 
 export const getLikesForUsername = (username) => {
@@ -23,9 +21,7 @@ export const getLikesForUsername = (username) => {
 		},
 	};
 
-	return axios
-		.get(`http://localhost:8000/api/${username}/likes`, config)
-		.then((res) => res.data);
+	return axios.get(`/api/${username}/likes`, config).then((res) => res.data);
 };
 
 export const deleteLike = (postId) => {
@@ -38,6 +34,6 @@ export const deleteLike = (postId) => {
 	};
 
 	return axios
-		.delete(`http://localhost:8000/api/posts/${postId}/unlike`, config)
+		.delete(`/api/posts/${postId}/unlike`, config)
 		.then((res) => res.data);
 };
