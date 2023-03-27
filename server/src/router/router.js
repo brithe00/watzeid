@@ -34,6 +34,7 @@ import {
 } from '../handlers/comment.js';
 import {
 	createPost,
+	deletePostById,
 	getAllPosts,
 	getMyPosts,
 	getPostById,
@@ -74,6 +75,8 @@ router.get('/:username/posts', getPostsForUsername);
 
 router.put('/users/:username/follow', followUserByUsername);
 router.put('/users/:username/unfollow', unfollowUserByUsername);
+
+router.delete('/posts/:id/list', deletePostById);
 
 router.post('/posts/:id/like', likePost);
 router.delete('/posts/:id/unlike', unlikePost);
