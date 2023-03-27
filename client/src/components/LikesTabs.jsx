@@ -6,7 +6,6 @@ import {
 	HStack,
 	Image,
 	SimpleGrid,
-	Spinner,
 	VStack,
 } from '@chakra-ui/react';
 import { BsHeartFill } from 'react-icons/bs';
@@ -14,6 +13,7 @@ import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
 import { getLikesForUsername } from '../api/like';
 import AlertState from './Alert';
+import Spinner from './Spinner';
 
 const LikesTabs = () => {
 	const { username } = useParams();
