@@ -39,3 +39,17 @@ export const getPostsForUsername = (username) => {
 
 	return axios.get(`/api/${username}/posts`, config).then((res) => res.data);
 };
+
+export const deletePostById = (postId) => {
+	const token = localStorage.getItem('token');
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	return axios
+		.delete(`/api/posts/${postId}/list`, config)
+		.then((res) => res.data);
+};
