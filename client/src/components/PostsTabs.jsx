@@ -34,10 +34,7 @@ const PostsTabs = () => {
 	return (
 		<>
 			{getPostsForUserQuery.data.posts.length === 0 ? (
-				<AlertState
-					status="error"
-					message={`@${username} did not liked posts !`}
-				/>
+				<AlertState status="error" message={`@${username} did not posted !`} />
 			) : (
 				<SimpleGrid
 					columns={{
