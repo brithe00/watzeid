@@ -102,6 +102,11 @@ export const getAllCommentsForPost = async (req, res) => {
 				},
 			},
 		},
+		orderBy: [
+			{
+				createdAt: 'desc',
+			},
+		],
 	});
 
 	res.json({ comments });
