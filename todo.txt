@@ -39,6 +39,8 @@
 !! DELETE TRY CATCH NEXT !!
 !! NEXT POST DELETE PUT ? !!
 
+!! FIELDS RETOUR API !!
+
 
 
 logique des likes, vote status etc
