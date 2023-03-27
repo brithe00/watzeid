@@ -84,6 +84,7 @@ export const likePost = async (req, res, next) => {
 				data: {
 					postId: post.id,
 					userId: req.user.id,
+					value: true,
 				},
 			});
 
