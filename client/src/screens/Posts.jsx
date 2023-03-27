@@ -13,8 +13,8 @@ import {
 	Text,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import { useQuery } from 'react-query';
-import { getMyPosts } from '../api/post';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { deletePostById, getMyPosts } from '../api/post';
 import AlertState from '../components/Alert';
 import { Gallery } from '../components/Gallery';
 import Layout from '../components/Layout';
@@ -28,10 +28,21 @@ import { format } from 'date-fns';
 const Posts = () => {
 	const color = useColorModeValue('sm', 'sm-dark');
 
+	const queryClient = useQueryClient();
+
 	const getMyPostsQuery = useQuery({
 		queryKey: ['posts'],
 		queryFn: () => getMyPosts(),
 	});
+
+	const deletePostMutation = useMutation({
+		mutationFn: deletePostById,
+		onSuccess: () => queryClient.invalidateQueries(['posts']),
+	});
+
+	const deletePostHandler = (postId) => {
+		deletePostMutation.mutate(postId);
+	};
 
 	if (getMyPostsQuery.status === 'loading')
 		return <Layout children={<Spinner />} />;
@@ -53,6 +64,8 @@ const Posts = () => {
 	return (
 		<Layout>
 			<PageHeaderNoUser heading="Your Posts" text="Manage your posts" />
+
+			{deletePostMutation.status === 'loading' && <Spinner />}
 
 			{getMyPostsQuery.data.posts.length === 0 ? (
 				<Box as="section" mt="6">
@@ -135,6 +148,7 @@ const Posts = () => {
 												aria-label="Delete Post"
 												cursor="pointer"
 												variant="ghost"
+												onClick={() => deletePostHandler(post.id)}
 											/>
 										</Box>
 									</CardFooter>
