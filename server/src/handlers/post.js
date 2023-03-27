@@ -125,3 +125,29 @@ export const getPostsForUsername = async (req, res) => {
 		res.json({ message: 'User not found !' });
 	}
 };
+
+export const deletePostById = async (req, res, next) => {
+	try {
+		const me = await prisma.user.findUnique({
+			where: {
+				id: req.user.id,
+			},
+		});
+
+		if (me) {
+			const post = await prisma.post.delete({
+				where: {
+					id: req.params.id,
+				},
+			});
+
+			res.json({ post });
+		} else {
+			res.status(404);
+			res.json({ message: 'User not found !' });
+		}
+	} catch (e) {
+		e.type = 'input';
+		next(e);
+	}
+};
