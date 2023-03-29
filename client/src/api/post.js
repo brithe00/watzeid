@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-// export const getPosts = () => {
-// 	return axios.get('http://localhost:8000/api/posts').then((res) => res.data);
-// };
+export const getPosts = () => {
+	const token = localStorage.getItem('token');
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	return axios.get('/api/posts', config).then((res) => res.data);
+};
 
 export const getPostById = (id) => {
 	const token = localStorage.getItem('token');
@@ -51,5 +59,20 @@ export const deletePostById = (postId) => {
 
 	return axios
 		.delete(`/api/posts/${postId}/list`, config)
+		.then((res) => res.data);
+};
+
+export const createPost = (caption, media) => {
+	const token = localStorage.getItem('token');
+
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	return axios
+		.post(`/api/posts`, { caption, media }, config)
 		.then((res) => res.data);
 };
