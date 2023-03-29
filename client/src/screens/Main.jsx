@@ -3,12 +3,16 @@ import {
 	AlertDescription,
 	AlertIcon,
 	AlertTitle,
+	Center,
 	Container,
 	Flex,
 	useColorModeValue,
 } from '@chakra-ui/react';
+import PostsLists from '../components/PostsLists';
 
 const Main = (props) => {
+	const boxShadow = useColorModeValue('sm', 'sm-dark');
+
 	return (
 		<Flex as="main" role="main" direction="column" flex="1" py="16" {...props}>
 			<Container flex="1">
@@ -19,7 +23,7 @@ const Main = (props) => {
 					justifyContent="center"
 					textAlign="center"
 					borderRadius="lg"
-					boxShadow={useColorModeValue('sm', 'sm-dark')}
+					boxShadow={boxShadow}
 					height="200px"
 				>
 					<AlertIcon boxSize="40px" mr={0} />
@@ -31,6 +35,8 @@ const Main = (props) => {
 						username and password obviously !
 					</AlertDescription>
 				</Alert>
+
+				<PostsLists />
 			</Container>
 		</Flex>
 	);
