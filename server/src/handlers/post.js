@@ -9,7 +9,13 @@ export const getAllPosts = async (req, res) => {
 			likes: true,
 			user: true,
 		},
+		orderBy: [
+			{
+				createdAt: 'desc',
+			},
+		],
 	});
+
 	res.json({ posts });
 };
 
@@ -49,20 +55,20 @@ export const createPost = async (req, res, next) => {
 	try {
 		const post = await prisma.post.create({
 			data: {
-				caption: 'testttttttt',
+				caption: req.body.caption,
 				userId: req.user.id,
 				media: {
 					createMany: {
-						data: req.body.links,
+						data: req.body.media,
 					},
 				},
-				items: {
-					createMany: {
-						data: req.body.items,
-					},
-				},
+				// items: {
+				// 	createMany: {
+				// 		data: req.body.items,
+				// 	},
+				// },
 			},
-			include: { media: true, items: true },
+			include: { media: true },
 		});
 
 		res.json({ data: post });
