@@ -53,30 +53,30 @@ const PostsLists = () => {
 
 	return (
 		<>
-			{getAllPostsQuery.data.posts.map((post) => (
-				<Card maxW="xl" key={post.id} my="8">
+			{getAllPostsQuery?.data?.posts.map((post) => (
+				<Card maxW="xl" key={post?.id} my="8">
 					<CardHeader>
 						<Flex spacing="4">
 							<Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-								<Avatar src={post.user.profilePicture} />
+								<Avatar src={post?.user?.profilePicture} />
 
 								<Box>
 									<HStack>
-										<Link as={ReachLink} to={`/${post.user.username}`}>
-											<Text as="b">{post.user.name}</Text>
+										<Link as={ReachLink} to={`/${post?.user?.username}`}>
+											<Text as="b">{post?.user?.name}</Text>
 										</Link>
 
-										{post.user.isAdmin && (
+										{post?.user?.isAdmin && (
 											<Icon as={HiShieldCheck} color="green.500" />
 										)}
 									</HStack>
 
-									<Text color="subtle">@{post.user.username}</Text>
+									<Text color="subtle">@{post?.user?.username}</Text>
 								</Box>
 							</Flex>
 							<Text color="subtle" display="flex" alignItems="center">
 								•{' '}
-								{formatDistance(new Date(post.createdAt), new Date(), {
+								{formatDistance(new Date(post?.createdAt), new Date(), {
 									addSuffix: true,
 								})}
 							</Text>
@@ -84,16 +84,16 @@ const PostsLists = () => {
 					</CardHeader>
 
 					<CardBody>
-						<Text>{post.caption}</Text>
+						<Text>{post?.caption}</Text>
 					</CardBody>
 
-					<Gallery images={post.media} />
+					<Gallery images={post?.media} />
 
 					<CardFooter flexDirection="column">
 						<Box>
 							<HStack>
 								<Text fontSize="sm" fontWeight="medium" color={color}>
-									{post.points === 1 ? (
+									{post?.points === 1 ? (
 										<>
 											<b>{post.points}</b> like
 										</>
@@ -104,13 +104,13 @@ const PostsLists = () => {
 									)}
 								</Text>
 								<Text fontSize="sm" fontWeight="medium" color={color}>
-									{post.comments.length === 1 ? (
+									{post?.comments?.length === 1 ? (
 										<>
-											<b>{post.comments.length}</b> comment
+											<b>{post?.comments?.length}</b> comment
 										</>
 									) : (
 										<>
-											<b>{post.comments.length}</b> comments
+											<b>{post?.comments?.length}</b> comments
 										</>
 									)}
 								</Text>
@@ -118,7 +118,7 @@ const PostsLists = () => {
 						</Box>
 
 						<Box pt="4">
-							<ReachLink to={`/post/${post.id}`}>
+							<ReachLink to={`/post/${post?.id}`}>
 								<Button width="full" colorScheme="blue" leftIcon={<ViewIcon />}>
 									View Post
 								</Button>
