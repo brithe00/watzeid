@@ -57,12 +57,12 @@ const LikesTabs = () => {
 									<Image src={like.post.media[0].url} />
 								</AspectRatio>
 							</Link>
-							<HStack pt="1" pl="1">
+							{/* <HStack pt="1" pl="1">
 								<Box>
 									<BsHeartFill color="#ED64A6" />
 								</Box>
 								<Box>{like.post.points}</Box>
-							</HStack>
+							</HStack> */}
 						</Box>
 					))}
 				</SimpleGrid>
