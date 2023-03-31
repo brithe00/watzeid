@@ -43,11 +43,11 @@ const PostsTabs = () => {
 					}}
 					spacing="2"
 				>
-					{getPostsForUserQuery.data.posts.map((post) => (
-						<Box key={post.id}>
-							<Link to={`/post/${post.id}`}>
+					{getPostsForUserQuery.data?.posts?.map((post) => (
+						<Box key={post?.id}>
+							<Link to={`/post/${post?.id}`}>
 								<AspectRatio ratio={1}>
-									<Image src={post.media[0].url} />
+									<Image src={post?.media[0]?.url} />
 								</AspectRatio>
 							</Link>
 						</Box>
