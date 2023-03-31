@@ -6,8 +6,8 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 import { protect } from './middleware/auth.js';
-import { login, register } from './handlers/user.js';
 import router from './router/router.js';
+import authRouter from './router/authRouter.js';
 
 import { notFound, errorHandler } from '../src/middleware/error.js';
 
@@ -18,9 +18,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/auth', authRouter);
 app.use('/api', protect, router);
-app.post('/register', register);
-app.post('/login', login);
 
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
