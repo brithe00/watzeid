@@ -136,13 +136,13 @@ const Comments = () => {
 												sm: '1',
 											}}
 										>
-											<IconButton
-												as="a"
-												href={`/post/${comment.post.id}`}
-												icon={<FiEye fontSize="1.25rem" />}
-												variant="ghost"
-												aria-label="View Post"
-											/>
+											<Link as={ReachLink} to={`/post/${comment.post.id}`}>
+												<IconButton
+													icon={<FiEye fontSize="1.25rem" />}
+													variant="ghost"
+													aria-label="View Post"
+												/>
+											</Link>
 											<IconButton
 												as="a"
 												icon={<FiTrash2 fontSize="1.25rem" />}
