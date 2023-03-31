@@ -25,6 +25,8 @@ import { FiEye, FiTrash2 } from 'react-icons/fi';
 
 import { format } from 'date-fns';
 
+import { Link } from 'react-router-dom';
+
 const Posts = () => {
 	const color = useColorModeValue('sm', 'sm-dark');
 
@@ -121,26 +123,27 @@ const Posts = () => {
 											<Box p="2">
 												<Icon as={BsHeart} fontSize="1.25rem" />
 												<Text as="b" ml="2">
-													{post._count.likes}
+													{post?._count?.likes}
 												</Text>
 											</Box>
 
 											<Box p="2" ml="2">
 												<Icon as={BsChat} fontSize="1.25rem" />
 												<Text as="b" ml="2">
-													{post._count.comments}
+													{post?._count?.comments}
 												</Text>
 											</Box>
 										</Box>
 
 										<Box>
-											<IconButton
-												as="a"
-												href={`/post/${post.id}`}
-												icon={<FiEye fontSize="1.25rem" />}
-												aria-label="View Post"
-												variant="ghost"
-											/>
+											<Link to={`/post/${post.id}`}>
+												<IconButton
+													icon={<FiEye fontSize="1.25rem" />}
+													aria-label="View Post"
+													variant="ghost"
+												/>
+											</Link>
+
 											<IconButton
 												ml="2"
 												as="a"
