@@ -92,40 +92,40 @@ const Post = () => {
 				<CardHeader>
 					<Flex spacing="4">
 						<Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-							<Avatar src={data.post.user.profilePicture} />
+							<Avatar src={data?.post?.user?.profilePicture} />
 
 							<Box>
 								<HStack>
-									<Link as={ReachLink} to={`/${data.post.user.username}`}>
+									<Link as={ReachLink} to={`/${data?.post?.user?.username}`}>
 										<Text as="b">{data.post.user.name}</Text>
 									</Link>
 
-									{data.post.user.isAdmin && (
+									{data?.post?.user?.isAdmin && (
 										<Icon as={HiShieldCheck} color="green.500" />
 									)}
 								</HStack>
 
-								<Text color="subtle">@{data.post.user.username}</Text>
+								<Text color="subtle">@{data?.post?.user?.username}</Text>
 							</Box>
 						</Flex>
 						<Text color="subtle" display="flex" alignItems="center">
 							•{' '}
-							{formatDistance(new Date(data.post.createdAt), new Date(), {
+							{formatDistance(new Date(data?.post?.createdAt), new Date(), {
 								addSuffix: true,
 							})}
 						</Text>
 					</Flex>
 				</CardHeader>
 				<CardBody>
-					<Text>{data.post.caption}</Text>
+					<Text>{data?.post?.caption}</Text>
 				</CardBody>
 
-				<Gallery images={data.post.media} />
+				<Gallery images={data?.post?.media} />
 
 				<CardFooter display="block">
 					<Flex justifyContent="space-between" alignItems="center">
 						<Box>
-							{data.post.likes
+							{data?.post?.likes
 								.map((like) => like.userId)
 								.includes(me.user.id) ? (
 								<IconButton
@@ -149,7 +149,7 @@ const Post = () => {
 						<Box>
 							<HStack>
 								<Text fontSize="sm" fontWeight="medium" color={color}>
-									{data.post.points === 1 ? (
+									{data?.post?.points === 1 ? (
 										<>
 											<b>{data.post.points}</b> like
 										</>
@@ -160,7 +160,7 @@ const Post = () => {
 									)}
 								</Text>
 								<Text fontSize="sm" fontWeight="medium" color={color}>
-									{data.post.comments.length === 1 ? (
+									{data?.post?.comments.length === 1 ? (
 										<>
 											<b>{data.post.comments.length}</b> comment
 										</>
