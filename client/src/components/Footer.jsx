@@ -43,8 +43,7 @@ const Footer = () => (
 				</ButtonGroup>
 			</Stack>
 			<Text fontSize="sm" color="subtle">
-				&copy; {new Date().getFullYear()} Chakra UI Pro, Inc. All rights
-				reserved.
+				&copy; {new Date().getFullYear()} Watzeid - v1. All rights reserved.
 			</Text>
 		</Stack>
 	</Container>

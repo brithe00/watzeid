@@ -36,7 +36,9 @@ const Main = (props) => {
 					</AlertDescription>
 				</Alert>
 
-				<PostsLists />
+				<Container>
+					<PostsLists />
+				</Container>
 			</Container>
 		</Flex>
 	);
