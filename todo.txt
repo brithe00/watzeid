@@ -27,6 +27,8 @@
 [x] getAllCommentsForPost
 [x] getAllCommentsForUser
 
+testing opencommit
+
 
 - Do something when you uplaod an image from the front, if you cancel and don't upload the image is still in the uploads folder
 - Component followers, following redirect on clik name
