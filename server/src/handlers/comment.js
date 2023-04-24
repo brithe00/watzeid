@@ -15,24 +15,24 @@ export const createComment = async (req, res, next) => {
 		});
 
 		if (post) {
-			const alreadyCommented = post.comments.find(
-				(r) => r.userId.toString() === req.user.id.toString()
-			);
+			// const alreadyCommented = post.comments.find(
+			// 	(r) => r.userId.toString() === req.user.id.toString()
+			// );
 
-			if (alreadyCommented) {
-				res.status(400);
-				res.json({ message: 'Post already commented !' });
-			} else {
-				const comment = await prisma.comment.create({
-					data: {
-						text: req.body.text,
-						userId: req.user.id,
-						postId: req.params.id,
-					},
-				});
+			// if (alreadyCommented) {
+			// 	res.status(400);
+			// 	res.json({ message: 'Post already commented !' });
+			// } else {
+			const comment = await prisma.comment.create({
+				data: {
+					text: req.body.text,
+					userId: req.user.id,
+					postId: req.params.id,
+				},
+			});
 
-				res.json({ comment });
-			}
+			res.json({ comment });
+			// }
 		} else {
 			res.status(404);
 			res.json({ message: 'Post not found !' });
