@@ -100,8 +100,7 @@ const Likes = () => {
 										<AspectRatio ratio={1}>
 											<Image
 												objectFit="cover"
-												src={like.post.media[0].url}
-												alt="Chakra UI"
+												src={like?.post?.media[0]?.url}
 												roundedTop="md"
 											/>
 										</AspectRatio>
