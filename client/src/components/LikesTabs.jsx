@@ -54,7 +54,7 @@ const LikesTabs = () => {
 						<Box key={like.id}>
 							<Link to={`/post/${like.post.id}`}>
 								<AspectRatio ratio={1}>
-									<Image src={like.post.media[0].url} />
+									<Image src={like?.post?.media[0]?.url} />
 								</AspectRatio>
 							</Link>
 							{/* <HStack pt="1" pl="1">
