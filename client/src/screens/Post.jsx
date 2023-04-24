@@ -204,7 +204,8 @@ const Post = () => {
 														)}
 													</Text>
 												</HStack>
-												<Text noOfLines="3">{comment.text}</Text>
+												<Text>{comment.text}</Text>
+												{/* <Text noOfLines="3">{comment.text}</Text> */}
 											</Box>
 										))}
 									</Stack>
